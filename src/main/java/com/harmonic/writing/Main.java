@@ -17,7 +17,14 @@ public class Main {
         JTextPane textPane = new JTextPane();
         textPane.setEditable(false);
 
-        ChordChart chordChart = new ChordChart("Never gonna give you up...");
+        Lyrics lyrics = new Lyrics("Never gonna give you up\n" +
+                "Never gonna let you down\n" +
+                "Never gonna turn around and desert you\n" +
+                "Never gonna make you cry\n" +
+                "Never gonna say goodbye\n" +
+                "Never gonna tell a lie and hurt you\n");
+
+        ChordChart chordChart = new ChordChart(lyrics);
         chordChart.addChord(Chord.G, 0);
         chordChart.addChord(Chord.A, 20);
         chordChart.showPane(textPane);
