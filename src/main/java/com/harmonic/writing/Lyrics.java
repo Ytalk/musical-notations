@@ -21,7 +21,7 @@ public class Lyrics {
         return slicedLyrics;
     }
 
-    final public void sliceLyrics(){
+    private final void sliceLyrics(){
         StringBuilder line = new StringBuilder();
 
         for (int x = 0; x < lyrics.length(); x++) {

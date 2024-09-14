@@ -25,8 +25,9 @@ public class Main {
                 "Never gonna tell a lie and hurt you\n");
 
         ChordChart chordChart = new ChordChart(lyrics);
-        chordChart.addChord(Chord.G, 0);
-        chordChart.addChord(Chord.A, 20);
+        chordChart.addChord(Chord.G, 0, 0);
+        chordChart.addChord(Chord.A, 0, 20);
+        chordChart.addChord(Chord.F, 1, 12);
         chordChart.showPane(textPane);
 
         frame.add(new JScrollPane(textPane));
