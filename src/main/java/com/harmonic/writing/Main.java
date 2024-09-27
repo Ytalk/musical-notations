@@ -25,6 +25,9 @@ public class Main {
                 "Never gonna tell a lie and hurt you\n");
 
         ChordChart chordChart = new ChordChart(lyrics);
+        Music music = new Music("Never Gonna Give You Up", "Rick Astley");
+        music.addNotation(chordChart);
+
         chordChart.addChord(Chord.G, 0, 0);
         chordChart.addChord(Chord.A, 0, 20);
         chordChart.addChord(Chord.F, 1, 12);

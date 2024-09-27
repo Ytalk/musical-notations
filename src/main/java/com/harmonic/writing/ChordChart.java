@@ -7,23 +7,18 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class ChordChart {
+public class ChordChart extends MusicalNotation{
     private Lyrics lyrics;
     private List<ChordPosition> chordPositions;
-    private Map<String, Chord> chords;
+    private StyledDocument chordChartDoc;
 
     public ChordChart(Lyrics lyrics) {
+        super( MusicalNotationType.CHORDCHART );
+
         this.lyrics = lyrics;
         this.chordPositions = new ArrayList<>();
-        this.chords = new HashMap<>();
-    }
-
-    public void adicionarChord(Chord chord){
-        chords.put(chord.getName(), chord);
     }
 
     public void addChord(Chord chord, int line, int position) {//posicionar
@@ -97,6 +92,8 @@ public class ChordChart {
         } catch (BadLocationException e) {
             e.printStackTrace();
         }
+
+        chordChartDoc = doc;
     }
 
 

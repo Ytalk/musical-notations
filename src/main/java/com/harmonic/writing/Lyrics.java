@@ -3,11 +3,13 @@ package com.harmonic.writing;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Lyrics {
+public class Lyrics extends MusicalNotation{
     private String lyrics;
     private List<String> slicedLyrics;
 
     public Lyrics(String lyrics){
+        super( MusicalNotationType.LYRICS );
+
         this.lyrics = lyrics;
         this.slicedLyrics = new ArrayList();
         sliceLyrics();
@@ -21,7 +23,7 @@ public class Lyrics {
         return slicedLyrics;
     }
 
-    private final void sliceLyrics(){
+    private void sliceLyrics(){
         StringBuilder line = new StringBuilder();
 
         for (int x = 0; x < lyrics.length(); x++) {
