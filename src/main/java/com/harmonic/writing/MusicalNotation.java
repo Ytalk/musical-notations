@@ -8,14 +8,14 @@ public abstract class MusicalNotation{
     }
 
 
-    //public abstract void editContent();
+    //abstract void editContent();
 
     //public void saveToPDF();
 
     //public void display();
 
 
-    public MusicalNotationType getMusicalNotationType(){
+    public MusicalNotationType getNotationType(){
         return notationType;
     }
 

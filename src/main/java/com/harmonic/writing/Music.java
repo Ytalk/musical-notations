@@ -1,8 +1,11 @@
 package com.harmonic.writing;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.List;
 import java.util.ArrayList;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Music {
     private List<MusicalNotation> notations;
     private String title;
@@ -20,6 +23,18 @@ public class Music {
 
     public void removeNotation(MusicalNotation notation) {
         notations.remove(notation);
+    }
+
+    public List<MusicalNotation> getNotations() {
+        return notations;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getArtist() {
+        return artist;
     }
 
 }

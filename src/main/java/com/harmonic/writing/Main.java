@@ -10,7 +10,7 @@ import javax.swing.JScrollPane;
 @SpringBootApplication
 public class Main {
     public Main() {
-        JFrame frame = new JFrame("test");
+        /*JFrame frame = new JFrame("test");
         frame.setSize(300, 100);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -34,13 +34,15 @@ public class Main {
         chordChart.showPane(textPane);
 
         frame.add(new JScrollPane(textPane));
-        frame.setVisible(true);
+        frame.setVisible(true);*/
     }
 
 
     public static void main(String[] args) {
-        //SpringApplication.run(Main.class, args);
-        new Main();
+
+
+        SpringApplication.run(Main.class, args);
+        //new Main();
     }
 
 }
