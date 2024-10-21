@@ -12,7 +12,6 @@ import java.util.List;
 public class ChordChart extends MusicalNotation{
     private Lyrics lyrics;
     private List<ChordPosition> chordPositions;
-    private StyledDocument chordChartDoc;
 
     public ChordChart(Lyrics lyrics) {
         super( MusicalNotationType.CHORDCHART );
@@ -93,7 +92,6 @@ public class ChordChart extends MusicalNotation{
             e.printStackTrace();
         }
 
-        chordChartDoc = doc;
     }
 
 
