@@ -12,20 +12,25 @@ def get_playlist():
     else:
         return []
 
+# Função que busca a letra da música no backend
 def get_lyrics(title):
-    # realiza a requisição para o backend em Java
+    # Realiza a requisição para o backend em Java
     response = requests.get(f'http://localhost:8080/api/music/{title}')
     
-    # verifica se a resposta foi bem-sucedida
+    # Verifica se a resposta foi bem-sucedida
     if response.status_code == 200:
         music_data = response.json()
         if music_data.get("title") == "Música não encontrada":
-            return "Música não encontrada."
+            return {"title": "Música não encontrada.", "artist": "", "lyrics": ""}
         
-        # caso a música tenha sido encontrada, retorne os detalhes
-        return f"Título: {music_data['title']}\nArtista: {music_data['artist']}\nLetras: {music_data['notations'][0]['lyrics']}"
+        # Retorna o título, artista e letras separadamente
+        return {
+            "title": music_data["title"],
+            "artist": music_data["artist"],
+            "lyrics": music_data['notations'][0]['lyrics']
+        }
     else:
-        return f"Erro ao buscar a música: {response.status_code}"
+        return {"title": f"Erro {response.status_code}", "artist": "", "lyrics": ""}
 
 
 def main(page: ft.Page):
@@ -42,9 +47,15 @@ def main(page: ft.Page):
         border_radius=8
     )
 
-    # exibe a letra da música
-    lyrics_output = ft.Container(
-        content=ft.Text("", color=ft.colors.WHITE, text_align=ft.TextAlign.LEFT),
+
+    # Exibe o título, artista e letra da música com scroll
+    lyrics_output = ft.Column(
+        controls=[],  # Inicialmente vazio, será preenchido com título, artista e letra
+        scroll="auto"
+    )
+
+    lyrics_output_container = ft.Container(
+        content=lyrics_output,
         width=400,
         height=400,
         bgcolor=ft.colors.GREY_900,
@@ -73,8 +84,7 @@ def main(page: ft.Page):
     # função de busca
     def on_search(e):
         title = title_input.content.value
-        lyrics_output.content.value = get_lyrics(title)
-        page.update()
+        load_lyrics(title)
 
 
     # carregar e exibir a playlist
@@ -84,7 +94,7 @@ def main(page: ft.Page):
             # adiciona os títulos das músicas na lista
             music_item = ft.TextButton(
                 music["title"],
-                on_click=lambda e, title=music["title"]: load_lyrics(title)
+                on_click=lambda e, title=music["title"]: load_lyrics(title),
             )
             music_list.controls.append(music_item)
         page.update()
@@ -92,7 +102,25 @@ def main(page: ft.Page):
 
     # busca a letra da música
     def load_lyrics(title):
-        lyrics_output.content.value = get_lyrics( format_title(title) )  # Atualiza o campo com a letra da música
+        music_data = get_lyrics(format_title(title))  # Busca as letras
+        lyrics_output.controls.clear()  # Limpa o conteúdo anterior
+
+        # Adiciona o título com fonte maior
+        lyrics_output.controls.append(
+            ft.Text(music_data["title"], size=24, weight="bold", color=ft.colors.WHITE)
+        )
+        
+        # Adiciona o artista com fonte um pouco menor
+        lyrics_output.controls.append(
+            ft.Text(music_data["artist"], size=20, italic=True, color=ft.colors.WHITE)
+        )
+
+        # Adiciona as letras no tamanho padrão
+        for line in music_data["lyrics"].split("\n"):
+            lyrics_output.controls.append(
+                ft.Text(line, size=16, color=ft.colors.WHITE)
+            )
+
         page.update()
 
 
@@ -113,7 +141,7 @@ def main(page: ft.Page):
                     spacing=20
                 ),
                 # coluna onde a letra da música será exibida
-                lyrics_output
+                lyrics_output_container
             ],
             alignment=ft.MainAxisAlignment.START
         )
